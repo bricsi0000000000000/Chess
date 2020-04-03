@@ -1,16 +1,12 @@
 #include <iostream>
 #include <string>
 
-#include "Pawn.h"
-#include "Rook.h"
-#include "Knight.h"
-#include "Bishop.h"
-#include "Queen.h"
-#include "King.h"
 #include "Grid.h"
 #include "PieceManager.h"
+#include "InputManager.h"
 
 PieceManager* PieceManager::instance = 0;
+InputManager* InputManager::instance = 0;
 
 int main()
 {
@@ -18,14 +14,11 @@ int main()
 	piece_manager->InitPieces();
 
 	Grid* grid = new Grid();
-	grid->InitGrid();
+	grid->InitGrid(piece_manager);
+	grid->DrawGrid();
 
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			std::cout << grid->GetGrid()[i][j].get()->GetPiece().get()->GetName() << ' ';
-		}
-		std::cout << '\n';
-	}
+	InputManager* input_manager = input_manager->Instance();
+	input_manager->ReadCommand(piece_manager, grid);
 }
 
 

@@ -10,4 +10,5 @@ public:
 	int y;
 };
 
+
 #endif POSITION_H

@@ -13,7 +13,7 @@ private:
 	std::shared_ptr<Piece> piece;
 	Color color;
 public:
-	Field(Position* position, Piece* piece, Color color)
+	Field(std::shared_ptr<Position> position, std::shared_ptr<Piece> piece, Color color)
 		:position(position), piece(piece), color(color) {}
 
 	std::shared_ptr<Position> GetPosition() {
