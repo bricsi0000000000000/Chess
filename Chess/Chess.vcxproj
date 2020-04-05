@@ -161,6 +161,7 @@
     <ClInclude Include="PieceManager.h" />
     <ClInclude Include="PieceType.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="RuleManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,7 @@ int black_piece_color = 14;
 #pragma endregion
 
 void Grid::InitGrid(PieceManager* piece_manager) {
+	this->piece_manager = piece_manager;
 	grid.clear();
 
 	std::vector<std::shared_ptr<Field>> first_row_black;
@@ -43,6 +44,8 @@ void Grid::InitGrid(PieceManager* piece_manager) {
 }
 
 void Grid::DrawGrid() {
+	std::system("cls");
+
 	int i = 0;
 	for (int row = 0; row < SIZE * 2 + 1; row++) {
 		SetConsoleTextAttribute(coloring, border_color);
@@ -67,7 +70,7 @@ void Grid::DrawGrid() {
 					std::cout << char(179);
 					continue;
 				}
-				std::shared_ptr<Piece> piece = grid[i][j]->GetPiece();
+				std::shared_ptr<Piece> piece = piece_manager->GetPiece(std::shared_ptr<Position>(new Position(i, j)));
 				if (grid[i][j]->GetColor() == Color::Black) {
 					SetConsoleTextAttribute(coloring, black_piece_color);
 				}
@@ -75,29 +78,34 @@ void Grid::DrawGrid() {
 					SetConsoleTextAttribute(coloring, white_piece_color);
 				}
 
-				switch (piece->GetPieceType())
-				{
-				case PieceType::Pawn:
-					std::cout << "P";
-					break;
-				case PieceType::Rook:
-					std::cout << "R";
-					break;
-				case PieceType::Bishop:
-					std::cout << "B";
-					break;
-				case PieceType::Knight:
-					std::cout << "k";
-					break;
-				case PieceType::Queen:
-					std::cout << "Q";
-					break;
-				case PieceType::King:
-					std::cout << "K";
-					break;
-				default:
-					std::cout << "X";
-					break;
+				if (piece != nullptr) {
+					switch (piece->GetPieceType())
+					{
+					case PieceType::Pawn:
+						std::cout << "P";
+						break;
+					case PieceType::Rook:
+						std::cout << "R";
+						break;
+					case PieceType::Bishop:
+						std::cout << "B";
+						break;
+					case PieceType::Knight:
+						std::cout << "k";
+						break;
+					case PieceType::Queen:
+						std::cout << "Q";
+						break;
+					case PieceType::King:
+						std::cout << "K";
+						break;
+					default:
+						std::cout << " ";
+						break;
+					}
+				}
+				else {
+					std::cout << " ";
 				}
 				j++;
 			}
@@ -114,7 +122,7 @@ void Grid::DrawGrid() {
 			continue;
 		}
 		if (row_index % 2 == 0) {
-			std::cout << char('a' + ((row_index-1) / 2));
+			std::cout << char('a' + ((row_index - 1) / 2));
 		}
 		else {
 			std::cout << ' ';
@@ -122,6 +130,8 @@ void Grid::DrawGrid() {
 	}
 
 	SetConsoleTextAttribute(coloring, black_white);
+
+	std::cout << '\n';
 }
 
 std::vector<std::vector<std::shared_ptr<Field>>> Grid::GetGrid() {

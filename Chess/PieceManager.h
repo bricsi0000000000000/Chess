@@ -25,36 +25,36 @@ public:
 
 	void InitPieces() {
 		for (int i = 0; i < 8; i++) {
-			black_pieces.push_back(std::shared_ptr<Piece>(new Piece("pawn_black_" + std::to_string(i + 1), std::shared_ptr<Position>(new Position(6, i)), Color::Black, PieceType::Pawn)));
+			white_pieces.push_back(std::shared_ptr<Piece>(new Piece("white pawn " + std::to_string(i + 1), std::shared_ptr<Position>(new Position(6, i)), Color::White, PieceType::Pawn)));
 		}
 
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("rook_black_1", std::shared_ptr<Position>(new Position(7, 0)), Color::Black, PieceType::Rook)));
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("rook_black_2", std::shared_ptr<Position>(new Position(7, 7)), Color::Black, PieceType::Rook)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("left white rook", std::shared_ptr<Position>(new Position(7, 0)), Color::White, PieceType::Rook)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("right white rook", std::shared_ptr<Position>(new Position(7, 7)), Color::White, PieceType::Rook)));
 
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("knight_black_1", std::shared_ptr<Position>(new Position(7, 1)), Color::Black, PieceType::Knight)));
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("knight_black_2", std::shared_ptr<Position>(new Position(7, 6)), Color::Black, PieceType::Knight)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("left white knight", std::shared_ptr<Position>(new Position(7, 1)), Color::White, PieceType::Knight)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("right white knight", std::shared_ptr<Position>(new Position(7, 6)), Color::White, PieceType::Knight)));
 
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("bishop_black_1", std::shared_ptr<Position>(new Position(7, 2)), Color::Black, PieceType::Bishop)));
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("bishop_black_2", std::shared_ptr<Position>(new Position(7, 5)), Color::Black, PieceType::Bishop)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("left white bishop", std::shared_ptr<Position>(new Position(7, 2)), Color::White, PieceType::Bishop)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("right white bishop", std::shared_ptr<Position>(new Position(7, 5)), Color::White, PieceType::Bishop)));
 
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("queen_black", std::shared_ptr<Position>(new Position(7, 3)), Color::Black, PieceType::Queen)));
-		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("king_black", std::shared_ptr<Position>(new Position(7, 4)), Color::Black, PieceType::King)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("white queen", std::shared_ptr<Position>(new Position(7, 3)), Color::White, PieceType::Queen)));
+		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("white king", std::shared_ptr<Position>(new Position(7, 4)), Color::White, PieceType::King)));
 
 		for (int i = 0; i < 8; i++) {
-			white_pieces.push_back(std::shared_ptr<Piece>(new Piece("pawn_white_" + std::to_string(i + 1), std::shared_ptr<Position>(new Position(1, i)), Color::White, PieceType::Pawn)));
+			black_pieces.push_back(std::shared_ptr<Piece>(new Piece("black pawn " + std::to_string(i + 1), std::shared_ptr<Position>(new Position(1, i)), Color::Black, PieceType::Pawn)));
 		}
 
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("rook_white_1", std::shared_ptr<Position>(new Position(0, 0)), Color::White, PieceType::Rook)));
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("rook_white_2", std::shared_ptr<Position>(new Position(0, 7)), Color::White, PieceType::Rook)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("left black rook", std::shared_ptr<Position>(new Position(0, 0)), Color::Black, PieceType::Rook)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("right black rook", std::shared_ptr<Position>(new Position(0, 7)), Color::Black, PieceType::Rook)));
 
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("knight_white_1", std::shared_ptr<Position>(new Position(0, 1)), Color::White, PieceType::Knight)));
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("knight_white_2", std::shared_ptr<Position>(new Position(0, 6)), Color::White, PieceType::Knight)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("left black knight", std::shared_ptr<Position>(new Position(0, 1)), Color::Black, PieceType::Knight)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("right black knight", std::shared_ptr<Position>(new Position(0, 6)), Color::Black, PieceType::Knight)));
 
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("bishop_white_1", std::shared_ptr<Position>(new Position(0, 2)), Color::White, PieceType::Bishop)));
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("bishop_white_2", std::shared_ptr<Position>(new Position(0, 5)), Color::White, PieceType::Bishop)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("left black bishop", std::shared_ptr<Position>(new Position(0, 2)), Color::Black, PieceType::Bishop)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("right black bishop", std::shared_ptr<Position>(new Position(0, 5)), Color::Black, PieceType::Bishop)));
 
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("queen_white", std::shared_ptr<Position>(new Position(0, 3)), Color::White, PieceType::Queen)));
-		white_pieces.push_back(std::shared_ptr<Piece>(new Piece("king_white", std::shared_ptr<Position>(new Position(0, 4)), Color::White, PieceType::King)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("black queen", std::shared_ptr<Position>(new Position(0, 3)), Color::Black, PieceType::Queen)));
+		black_pieces.push_back(std::shared_ptr<Piece>(new Piece("black king", std::shared_ptr<Position>(new Position(0, 4)), Color::Black, PieceType::King)));
 
 		for (const auto& piece : white_pieces) {
 			pieces.push_back(piece);
