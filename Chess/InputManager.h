@@ -26,6 +26,7 @@ public:
 		GameManager* game_manager = game_manager->Instance();
 
 		while (!game_manager->GetGameOver()) {
+			//std::cout << "Hint: column row (a1)\n";
 			std::cout << "From: ";
 			std::string from_input;
 			std::cin >> from_input;
@@ -53,22 +54,23 @@ public:
 
 			std::shared_ptr<Piece> from_piece = piece_manager->GetPiece(from_position);
 			std::shared_ptr<Piece> to_piece = piece_manager->GetPiece(to_position);
-			
+
 			if (to_piece == nullptr) {
-				if (!piece_manager->MovePiece(from_position, to_position)) {
-					std::cout << "no piece is on position(" << 7 - from_position->x << ';' << from_position->y << ")\n";
+				if (!piece_manager->CanMove(from_position, to_position)) {
+					std::cout << "no piece is on position(" << from_position->x << ';' << from_position->y << ")\n";
 				}
 				else {
 					if (rule_manager->CanStep(from_piece, to_position, piece_manager)) {
+						piece_manager->MovePiece(from_position, to_position);
 						grid->DrawGrid();
 					}
 					else {
-						std::cout << "can't step to position(" << 7 - to_position->x << ';' << to_position->y << ")\n";
+						std::cout << "can't step to position(" << to_position->x << ';' << to_position->y << ")\n";
 					}
 				}
 			}
 			else {
-				std::cout << "'" << to_piece->GetName() << "' is on position (" << 7 - to_position->x << ';' << to_position->y << ")\n";
+				std::cout << "'" << to_piece->GetName() << "' is on position (" << to_position->x << ';' << to_position->y << ")\n";
 			}
 		}
 	}

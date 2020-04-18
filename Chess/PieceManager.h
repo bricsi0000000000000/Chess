@@ -66,19 +66,25 @@ public:
 
 	std::shared_ptr<Piece> GetPiece(std::shared_ptr<Position> position) {
 		for (const auto& piece : pieces) {
-			if (piece->GetPosition()->x == position->x && piece->GetPosition() ->y == position->y) {
+			if (piece->GetPosition()->x == position->x && piece->GetPosition()->y == position->y) {
 				return piece;
 			}
 		}
 		return nullptr;
 	}
-	
-	bool MovePiece(std::shared_ptr<Position> from_position, std::shared_ptr<Position> to_position) {
-		if (GetPiece(from_position) == nullptr) {
+
+	bool CanMove(std::shared_ptr<Position> from_position, std::shared_ptr<Position> to_position) {
+		std::shared_ptr<Piece> piece(GetPiece(from_position));
+		if (piece == nullptr) {
 			return false;
 		}
 
-		GetPiece(from_position)->SetPosition(to_position);
+		return true;
+	}
+	
+	void MovePiece(std::shared_ptr<Position> from_position, std::shared_ptr<Position> to_position) {
+		std::shared_ptr<Piece> piece(GetPiece(from_position));
+		piece->SetPosition(to_position);
 	}
 
 	std::vector<std::shared_ptr<Piece>> GetBlackPieces() {

@@ -71,11 +71,21 @@ void Grid::DrawGrid() {
 					continue;
 				}
 				std::shared_ptr<Piece> piece = piece_manager->GetPiece(std::shared_ptr<Position>(new Position(i, j)));
-				if (grid[i][j]->GetColor() == Color::Black) {
-					SetConsoleTextAttribute(coloring, black_piece_color);
+				if (piece != nullptr) {
+					if (piece->GetColor() == Color::Black) {
+						SetConsoleTextAttribute(coloring, black_piece_color);
+					}
+					else {
+						SetConsoleTextAttribute(coloring, white_piece_color);
+					}
 				}
-				else {
-					SetConsoleTextAttribute(coloring, white_piece_color);
+				else{
+					if (grid[i][j]->GetColor() == Color::Black) {
+						SetConsoleTextAttribute(coloring, black_piece_color);
+					}
+					else {
+						SetConsoleTextAttribute(coloring, white_piece_color);
+					}
 				}
 
 				if (piece != nullptr) {
