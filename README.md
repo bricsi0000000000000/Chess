@@ -1,5 +1,5 @@
 # Chess
 
-Console chess program written in C++
+## GKNB_INTM026
 
-The code of the subject is GKNB_INTM026
+Console chess program written in C++
