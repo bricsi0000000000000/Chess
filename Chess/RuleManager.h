@@ -27,7 +27,7 @@ public:
 		{
 		case PieceType::Pawn:
 			if (piece->GetColor() == Color::White) {
-				if (piece->GetPosition()->y == position->y) {
+				if (piece->GetPosition()->y >= position->y - 1 && piece->GetPosition()->y <= position->y + 1) {
 					if (piece->GetPosition()->x == 6) {
 						if (piece->GetPosition()->x - 2 == position->x) {
 							return true;
@@ -40,7 +40,7 @@ public:
 				}
 			}
 			else if (piece->GetColor() == Color::Black) {
-				if (piece->GetPosition()->y == position->y) {
+				if (piece->GetPosition()->y >= position->y - 1 && piece->GetPosition()->y <= position->y + 1) {
 					if (piece->GetPosition()->x == 1) {
 						if (piece->GetPosition()->x + 2 == position->x) {
 							return true;

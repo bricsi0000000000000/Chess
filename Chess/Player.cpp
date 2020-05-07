@@ -1,0 +1,22 @@
+#include "Player.h"
+
+Player::Player(std::string name, Color color) : name(name), points(0), color(color) {}
+
+std::string Player::GetName() {
+	return name;
+}
+
+int Player::GetPoints() {
+	return points;
+}
+
+Color Player::GetColor() {
+	return color;
+}
+
+std::vector<std::shared_ptr<Piece>> Player::GetOffPieces() {
+	return off_pieces;
+}
+void Player::AddOffPiece(std::shared_ptr<Piece> piece) {
+	off_pieces.push_back(piece);
+}

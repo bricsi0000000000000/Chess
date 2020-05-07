@@ -13,6 +13,9 @@ RuleManager* RuleManager::instance = 0;
 
 int main()
 {
+	GameManager* game_manager = game_manager->Instance();
+	game_manager->StartGame("Jani", "Pista", 0);
+
 	RuleManager* rule_manager = rule_manager->Instance();
 
 	PieceManager* piece_manager = piece_manager->Instance();
@@ -23,7 +26,9 @@ int main()
 	grid->DrawGrid();
 
 	InputManager* input_manager = input_manager->Instance();
-	input_manager->ReadCommand(piece_manager, grid, rule_manager);
+	while (!game_manager->GetGameOver()) {
+		input_manager->ReadCommand(piece_manager, grid, rule_manager, game_manager);
+	}
 	/*std::cout << std::endl;
 	std::shared_ptr<Piece> piece = piece_manager->GetPiece(std::shared_ptr<Position>(new Position(0, 0)));
 	piece_manager->MovePiece(std::shared_ptr<Position>(new Position(0, 0)), std::shared_ptr<Position>(new Position(3, 3)));

@@ -1,17 +1,8 @@
-#include<memory>
+#include <memory>
 #include <Windows.h>
 
 #include "Grid.h"
 #include "PieceManager.h"
-
-#pragma region CONSOLE_COLORS
-HANDLE coloring = GetStdHandle(STD_OUTPUT_HANDLE);
-int black_white = 7;
-int border_color = 8;
-int white_piece_color = 15;
-int black_piece_color = 14;
-
-#pragma endregion
 
 void Grid::InitGrid(PieceManager* piece_manager) {
 	this->piece_manager = piece_manager;
@@ -45,9 +36,7 @@ void Grid::InitGrid(PieceManager* piece_manager) {
 	}
 }
 
-void Grid::DrawGrid() {
-	std::system("cls");
-
+void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 	const char horizontal_line = (char)196;
 	const char cross_line = (char)197;
 	const char vertical_line = (char)179;
@@ -162,19 +151,23 @@ void Grid::DrawGrid() {
 							}
 						}
 						else {
-							std::cout << ' ';
+							bool highlight_cell = false;
+							for (const auto& cell : highlight_cells) {
+								if (cell->x == i_index && cell->y == j_index - 1) {
+									SetConsoleTextAttribute(coloring, pink_color);
+									std::cout << 'x';
+									highlight_cell = true;
+								}
+							}
+							if (!highlight_cell) {
+								std::cout << ' ';
+							}
 						}
 
 						col_draw_index += 4;
 					}
 					else {
 						if (row_index == SIZE) {
-							/*if (col_index % 4 == 0) {
-								std::cout << '#';
-							}
-							else {
-								std::cout << '$';
-							}*/
 							if (col_index >= 0 && col_draw_index == col_index) {
 								std::cout << ' ' << char('a' + letter_index++);
 								col_draw_index += 4;

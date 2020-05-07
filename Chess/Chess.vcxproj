@@ -150,6 +150,7 @@
     <ClCompile Include="Chess.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Piece.h" />
     <ClInclude Include="PieceManager.h" />
     <ClInclude Include="PieceType.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="RuleManager.h" />
   </ItemGroup>

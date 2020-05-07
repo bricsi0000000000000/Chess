@@ -6,6 +6,7 @@
 
 #include "Piece.h"
 #include "PieceType.h"
+#include "GameManager.h"
 
 class PieceManager {
 private:
@@ -85,6 +86,15 @@ public:
 	void MovePiece(std::shared_ptr<Position> from_position, std::shared_ptr<Position> to_position) {
 		std::shared_ptr<Piece> piece(GetPiece(from_position));
 		piece->SetPosition(to_position);
+	}
+
+	void RemovePiece(std::shared_ptr<Position> position, GameManager* game_manager) {
+		for (int i = 0; i < pieces.size(); i++) {
+			if (pieces[i]->GetPosition()->x == position->x && pieces[i]->GetPosition()->y == position->y) {
+				game_manager->GetActPlayer()->AddOffPiece(pieces[i]);
+				pieces.erase(pieces.begin() + i);
+			}
+		}
 	}
 
 	std::vector<std::shared_ptr<Piece>> GetBlackPieces() {
