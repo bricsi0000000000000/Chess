@@ -65,6 +65,8 @@ void Grid::DrawGrid() {
 	const int SIZE = 33;
 	int row_draw_index = 2;
 	int i_index = 0;
+	int numbers_index = 8;
+	int letter_index = 0;
 
 	for (int row_index = 0; row_index < SIZE + 1; row_index++) {
 		SetConsoleTextAttribute(coloring, border_color);
@@ -76,7 +78,7 @@ void Grid::DrawGrid() {
 			SetConsoleTextAttribute(coloring, border_color);
 
 			if (col_index == -2 && row_index == row_draw_index) {
-				std::cout << char('a' + (7 - i_index));
+				std::cout << numbers_index--;
 			}
 			else if (row_index == 0 && col_index == 0) {
 				std::cout << top_left_edge;
@@ -167,14 +169,15 @@ void Grid::DrawGrid() {
 					}
 					else {
 						if (row_index == SIZE) {
-							if (col_index > 1) {
-								if (col_index == col_draw_index ) {
-									std::cout << '#';
-									col_draw_index += 5;
-								}
-								else {
-									std::cout << ' ';
-								}
+							/*if (col_index % 4 == 0) {
+								std::cout << '#';
+							}
+							else {
+								std::cout << '$';
+							}*/
+							if (col_index >= 0 && col_draw_index == col_index) {
+								std::cout << ' ' << char('a' + letter_index++);
+								col_draw_index += 4;
 							}
 							else {
 								std::cout << ' ';
