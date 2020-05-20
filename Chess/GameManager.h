@@ -12,6 +12,7 @@ private:
 	HANDLE coloring = GetStdHandle(STD_OUTPUT_HANDLE);
 	int white_piece_color = 15;
 	int black_piece_color = 14;
+	int black_white = 7;
 #pragma endregion
 
 	GameManager() {}
@@ -58,6 +59,10 @@ public:
 		return act_player == 1 ? player_one : player_two;
 	}
 
+	Player* GetOppositePlayer() {
+		return act_player == 2 ? player_one : player_two;
+	}
+
 	void ChangePlayer() {
 		act_player = act_player == 1 ? 2 : 1;
 	}
@@ -66,18 +71,20 @@ public:
 		//std::system("cls");
 
 		SetConsoleTextAttribute(coloring, player_one->GetColor() == Color::White ? white_piece_color : black_piece_color);
-		std::cout << (act_player == 1 ? '*' : ' ') << player_one->GetName() << "\tPoints: " << player_one->GetPoints() << "\tOffpieces: ";
+		std::cout << (act_player == 1 ? '*' : ' ') << player_one->GetName() << "\tPoints: " << player_one->GetPoints() << "\tOff pieces: ";
 		for (int i = 0; i < player_one->GetOffPieces().size(); i++) {
 			std::cout << player_one->GetOffPieces()[i]->GetName() << (i + 1 >= player_one->GetOffPieces().size() ? "" : ", ");
 		}
 		std::cout << '\n';
 
 		SetConsoleTextAttribute(coloring, player_two->GetColor() == Color::White ? white_piece_color : black_piece_color);
-		std::cout << (act_player == 2 ? '*' : ' ') << player_two->GetName() << "\tPoints: " << player_two->GetPoints() << "\tOffpieces: ";
+		std::cout << (act_player == 2 ? '*' : ' ') << player_two->GetName() << "\tPoints: " << player_two->GetPoints() << "\tOff pieces: ";
 		for (int i = 0; i < player_two->GetOffPieces().size(); i++) {
 			std::cout << player_two->GetOffPieces()[i]->GetName() << (i + 1 >= player_two->GetOffPieces().size() ? "" : ", ");
 		}
 		std::cout << '\n';
+
+		SetConsoleTextAttribute(coloring, black_white);
 	}
 };
 

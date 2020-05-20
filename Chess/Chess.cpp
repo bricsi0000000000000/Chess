@@ -13,6 +13,7 @@ RuleManager* RuleManager::instance = 0;
 
 int main()
 {
+	//std::cout << "\033[1;31mbold red text\033[0m\n";
 	GameManager* game_manager = game_manager->Instance();
 	game_manager->StartGame("Jani", "Pista", 0);
 
@@ -26,6 +27,7 @@ int main()
 	grid->DrawGrid();
 
 	InputManager* input_manager = input_manager->Instance();
+	//input_manager->InitAllStepsCount(Color::Black, grid, piece_manager, rule_manager);
 	while (!game_manager->GetGameOver()) {
 		input_manager->ReadCommand(piece_manager, grid, rule_manager, game_manager);
 	}

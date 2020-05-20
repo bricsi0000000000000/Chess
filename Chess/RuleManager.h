@@ -21,8 +21,6 @@ public:
 	}
 
 	static bool CanStep(std::shared_ptr<Piece> piece, std::shared_ptr<Position> position, PieceManager* piece_manager) {
-		bool is_piece_between = false;
-
 		switch (piece->GetPieceType())
 		{
 		case PieceType::Pawn:

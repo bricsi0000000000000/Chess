@@ -17,6 +17,15 @@ Color Player::GetColor() {
 std::vector<std::shared_ptr<Piece>> Player::GetOffPieces() {
 	return off_pieces;
 }
+
 void Player::AddOffPiece(std::shared_ptr<Piece> piece) {
 	off_pieces.push_back(piece);
+}
+
+void Player::RemoveOffPiece(std::shared_ptr<Piece> piece) {
+	for (int i = 0; i < off_pieces.size(); i++) {
+		if (off_pieces[i]->GetPosition()->x == piece->GetPosition()->x && off_pieces[i]->GetPosition()->y == piece->GetPosition()->y) {
+			off_pieces.erase(off_pieces.begin() + i);
+		}
+	}
 }

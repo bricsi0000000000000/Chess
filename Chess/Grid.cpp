@@ -117,12 +117,21 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 				else {
 					if (row_index == row_draw_index && col_index == col_draw_index) {
 						std::shared_ptr<Piece> piece = piece_manager->GetPiece(std::shared_ptr<Position>(new Position(i_index, j_index++)));
+
+						bool already_highlighted = false;
 						if (piece != nullptr) {
 							if (piece->GetColor() == Color::Black) {
 								SetConsoleTextAttribute(coloring, black_piece_color);
 							}
 							else {
 								SetConsoleTextAttribute(coloring, white_piece_color);
+							}
+
+							for (const auto& cell : highlight_cells) {
+								if (cell->x == i_index && cell->y == j_index - 1) {
+									SetConsoleTextAttribute(coloring, pink_color);
+									already_highlighted = true;
+								}
 							}
 
 							switch (piece->GetPieceType())
@@ -152,11 +161,13 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 						}
 						else {
 							bool highlight_cell = false;
-							for (const auto& cell : highlight_cells) {
-								if (cell->x == i_index && cell->y == j_index - 1) {
-									SetConsoleTextAttribute(coloring, pink_color);
-									std::cout << 'x';
-									highlight_cell = true;
+							if (!already_highlighted) {
+								for (const auto& cell : highlight_cells) {
+									if (cell->x == i_index && cell->y == j_index - 1) {
+										SetConsoleTextAttribute(coloring, pink_color);
+										std::cout << 'x';
+										highlight_cell = true;
+									}
 								}
 							}
 							if (!highlight_cell) {
@@ -191,100 +202,6 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 
 		std::cout << '\n';
 	}
-
-
-	/*int grid_i_index = 0;
-	for (int row = 0; row < SIZE; row++) {
-		SetConsoleTextAttribute(coloring, border_color);
-		int grid_j_index = 0;
-		if (row % 2 == 0) {
-			for (int row_index = 0; row_index < SIZE; row_index++) {
-				if (row_index == 0) {
-					std::cout << ' ';
-					continue;
-				}
-				std::cout << char(196);
-			}
-		}
-		else {
-			for (int column = 0; column < SIZE * 2 + 1; column++) {
-				if (column == 0) {
-					std::cout << (SIZE)-(row / 2);
-				}
-
-				SetConsoleTextAttribute(coloring, border_color);
-				if (column % 2 == 0) {
-					std::cout << char(179);
-					continue;
-				}
-				std::shared_ptr<Piece> piece = piece_manager->GetPiece(std::shared_ptr<Position>(new Position(grid_i_index, grid_j_index)));
-				if (piece != nullptr) {
-					if (piece->GetColor() == Color::Black) {
-						SetConsoleTextAttribute(coloring, black_piece_color);
-					}
-					else {
-						SetConsoleTextAttribute(coloring, white_piece_color);
-					}
-				}
-				else{
-					if (grid[grid_i_index][grid_j_index]->GetColor() == Color::Black) {
-						SetConsoleTextAttribute(coloring, black_piece_color);
-					}
-					else {
-						SetConsoleTextAttribute(coloring, white_piece_color);
-					}
-				}
-
-				if (piece != nullptr) {
-					switch (piece->GetPieceType())
-					{
-					case PieceType::Pawn:
-						std::cout << "P";
-						break;
-					case PieceType::Rook:
-						std::cout << "R";
-						break;
-					case PieceType::Bishop:
-						std::cout << "B";
-						break;
-					case PieceType::Knight:
-						std::cout << "k";
-						break;
-					case PieceType::Queen:
-						std::cout << "Q";
-						break;
-					case PieceType::King:
-						std::cout << "K";
-						break;
-					default:
-						std::cout << " ";
-						break;
-					}
-				}
-				else {
-					std::cout << " ";
-				}
-				grid_j_index++;
-			}
-			grid_i_index++;
-		}
-		std::cout << '\n';
-	}*/
-
-	SetConsoleTextAttribute(coloring, black_white);
-
-	/*for (int row_index = 0; row_index < SIZE * 2 + 1; row_index++) {
-		if (row_index == 0) {
-			std::cout << ' ';
-			continue;
-		}
-		if (row_index % 2 == 0) {
-			std::cout << char('a' + ((row_index - 1) / 2));
-		}
-		else {
-			std::cout << ' ';
-		}
-	}*/
 
 	SetConsoleTextAttribute(coloring, black_white);
 

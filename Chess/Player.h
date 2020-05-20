@@ -21,6 +21,7 @@ public:
 	Color GetColor();
 	std::vector<std::shared_ptr<Piece>> GetOffPieces();
 	void AddOffPiece(std::shared_ptr<Piece> piece);
+	void RemoveOffPiece(std::shared_ptr<Piece> piece);
 };
 
 #endif PLAYER_H
