@@ -45,6 +45,7 @@ public:
 	}
 	void GameOver() {
 		game_over = true;
+		std::cout << GetActPlayer()->GetName() << " won\n";
 	}
 
 	Player* GetPlayerOne() {

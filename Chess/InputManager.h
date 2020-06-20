@@ -19,6 +19,7 @@ private:
 	InputManager() {}
 	static InputManager* instance;
 	bool check = false;
+	int check_check_mate_steps = 0;
 
 	//std::vector<std::pair<std::shared_ptr<Piece>, std::shared_ptr<Position>>> last_steps;
 	//int all_steps_count = 0;
@@ -240,17 +241,26 @@ private:
 		return false;
 	}
 
-	bool checkCheckMate(Grid* grid, PieceManager* piece_manager, RuleManager* rule_manager, Color color) {
-		bool check_mate_king = true;
-		for (const auto& step : possibleSteps(grid, piece_manager, rule_manager, piece_manager->GetKing(color))) {
-			for (const auto& piece : piece_manager->GetPieces()) {
-				if (!isInPossibleSteps(grid, piece_manager, rule_manager, piece, step)) {
-					check_mate_king = false;
+	int checkCheckMate(Grid* grid, PieceManager* piece_manager, RuleManager* rule_manager, Color color, GameManager* game_manager) {
+		int all_possible_step = 0;
+
+		for (const auto& piece : piece_manager->GetPieces()) {
+			if (piece->GetColor() == color) {
+				bool is_alive = true;
+				for (const auto& off_piece : game_manager->GetPlayerTwo()->GetOffPieces()) {
+					if (piece->GetName() == off_piece->GetName()) {
+						is_alive = false;
+					}
+				}
+				if (is_alive) {
+					all_possible_step += possibleSteps(grid, piece_manager, rule_manager, piece).size();
 				}
 			}
 		}
 
-		return check_mate_king;
+		//std::cout << "all possible steps: " << all_possible_step << '\n';
+
+		return all_possible_step;
 	}
 
 	void checkCheck(Grid* grid, PieceManager* piece_manager, RuleManager* rule_manager, Color color) {
@@ -332,9 +342,10 @@ public:
 		//std::cout << "Hint: column row (a1)\n";
 		if (game_manager->GetActPlayer()->GetColor() == Color::Black) {
 
-			/*if (checkCheckMate(grid, piece_manager, rule_manager, Color::Black)) {
+			if (check_check_mate_steps > checkCheckMate(grid, piece_manager, rule_manager, Color::Black, game_manager)) {
+				std::cout << "Check mate\n";
 				game_manager->GameOver();
-			}*/
+			}
 
 			std::shared_ptr<Piece> random_piece = piece_manager->GetPieces()[rand() % piece_manager->GetPieces().size()];
 
@@ -418,6 +429,7 @@ public:
 						piece_manager->RevivePiece(to_piece, game_manager);
 					}
 					std::cout << "Can't step, because you are in check!\n";
+					check_check_mate_steps++;
 					return;
 				}
 				else {
@@ -426,6 +438,8 @@ public:
 					std::cout << "--------------------------------\n";
 					std::cout << "Bot step: |" << random_piece->GetName() << "| (" << prev_position->x << ';' << prev_position->y << ") -> (" << to_position->x << ';' << to_position->y << ")\n";
 					std::cout << "--------------------------------\n";
+
+					check_check_mate_steps = 0;
 
 					game_manager->ChangePlayer();
 					game_manager->PrintPlayerInfos();
