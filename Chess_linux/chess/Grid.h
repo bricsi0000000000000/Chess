@@ -36,5 +36,4 @@ public:
   std::vector<std::vector<std::shared_ptr<Field>>> GetGrid();
 };
 
-#endif GRID_H
-
+#endif // GRID_H

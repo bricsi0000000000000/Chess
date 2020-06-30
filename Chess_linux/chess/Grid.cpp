@@ -345,4 +345,3 @@ void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Posit
 std::vector<std::vector<std::shared_ptr<Field>>> Grid::GetGrid() {
   return grid;
 }
-
