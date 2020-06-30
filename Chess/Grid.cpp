@@ -36,7 +36,7 @@ void Grid::InitGrid(PieceManager* piece_manager) {
 }
 
 void Grid::setConsoleColor(std::string color_name) {
-	if (color_name.compare("black_white") == 0) {
+	/*if (color_name.compare("black_white") == 0) {
 #ifdef _WIN32
 		SetConsoleTextAttribute(coloring, black_white);
 #endif
@@ -75,7 +75,7 @@ void Grid::setConsoleColor(std::string color_name) {
 #ifdef linux
 		std::cout << "\033[0;35";
 #endif
-	}
+	}*/
 }
 
 void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Position>> highlight_cells) {
