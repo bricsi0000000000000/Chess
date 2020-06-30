@@ -24,7 +24,7 @@ int main()
 
 	Grid* grid = new Grid();
 	grid->InitGrid(piece_manager);
-	grid->DrawGrid();
+	grid->DrawGrid(game_manager);
 
 	InputManager* input_manager = input_manager->Instance();
 	//input_manager->InitAllStepsCount(Color::Black, grid, piece_manager, rule_manager);

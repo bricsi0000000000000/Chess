@@ -1,5 +1,4 @@
 #include <memory>
-#include <Windows.h>
 
 #include "Grid.h"
 #include "PieceManager.h"
@@ -36,7 +35,53 @@ void Grid::InitGrid(PieceManager* piece_manager) {
 	}
 }
 
-void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
+void Grid::setConsoleColor(std::string color_name) {
+	if (color_name.compare("black_white") == 0) {
+#ifdef _WIN32
+		SetConsoleTextAttribute(coloring, black_white);
+#endif
+#ifdef linux
+		std::cout << "\033[0;37";
+#endif
+	}
+	else if (color_name.compare("border_color") == 0) {
+#ifdef _WIN32
+		SetConsoleTextAttribute(coloring, border_color);
+#endif
+#ifdef linux
+		std::cout << "\033[0;30";
+#endif
+	}
+	else if (color_name.compare("white_piece_color") == 0) {
+#ifdef _WIN32
+		SetConsoleTextAttribute(coloring, white_piece_color);
+#endif
+#ifdef linux
+		std::cout << "\033[0;37";
+#endif
+	}
+	else if (color_name.compare("black_piece_color") == 0) {
+#ifdef _WIN32
+		SetConsoleTextAttribute(coloring, black_piece_color);
+#endif
+#ifdef linux
+		std::cout << "\033[0;33";
+#endif
+	}
+	else if (color_name.compare("pink_color") == 0) {
+#ifdef _WIN32
+		SetConsoleTextAttribute(coloring, pink_color);
+#endif
+#ifdef linux
+		std::cout << "\033[0;35";
+#endif
+	}
+}
+
+void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Position>> highlight_cells) {
+	std::system("cls");
+	setConsoleColor("black_white");
+
 	const char horizontal_line = (char)196;
 	const char cross_line = (char)197;
 	const char vertical_line = (char)179;
@@ -58,13 +103,13 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 	int letter_index = 0;
 
 	for (int row_index = 0; row_index < SIZE + 1; row_index++) {
-		SetConsoleTextAttribute(coloring, border_color);
+		setConsoleColor("border_color");
 
 		int col_draw_index = 2;
 		int j_index = 0;
 
 		for (int col_index = -3; col_index < SIZE; col_index++) {
-			SetConsoleTextAttribute(coloring, border_color);
+			setConsoleColor("border_color");
 
 			if (col_index == -2 && row_index == row_draw_index) {
 				std::cout << numbers_index--;
@@ -121,15 +166,16 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 						bool already_highlighted = false;
 						if (piece != nullptr) {
 							if (piece->GetColor() == Color::Black) {
-								SetConsoleTextAttribute(coloring, black_piece_color);
+								setConsoleColor("black_piece_color");
 							}
 							else {
-								SetConsoleTextAttribute(coloring, white_piece_color);
+								setConsoleColor("white_piece_color");
 							}
 
 							for (const auto& cell : highlight_cells) {
 								if (cell->x == i_index && cell->y == j_index - 1) {
-									SetConsoleTextAttribute(coloring, pink_color);
+									setConsoleColor("pink_color");
+
 									already_highlighted = true;
 								}
 							}
@@ -164,7 +210,8 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 							if (!already_highlighted) {
 								for (const auto& cell : highlight_cells) {
 									if (cell->x == i_index && cell->y == j_index - 1) {
-										SetConsoleTextAttribute(coloring, pink_color);
+										setConsoleColor("pink_color");
+
 										std::cout << 'x';
 										highlight_cell = true;
 									}
@@ -193,6 +240,10 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 					}
 				}
 			}
+
+#ifdef linux
+			std::cout << "\033[0m";
+#endif
 		}
 
 		if (row_index == row_draw_index) {
@@ -200,10 +251,34 @@ void Grid::DrawGrid(std::vector<std::shared_ptr<Position>> highlight_cells) {
 			i_index++;
 		}
 
+		setConsoleColor("white_piece_color");
+
+		if (row_index == 1) {
+			std::cout << (game_manager->GetActPlayerNumber() == 1 ? '*' : ' ') << game_manager->GetPlayerOne()->GetName() << "\tPoints: " << game_manager->GetPlayerOne()->GetPoints();
+		}
+		if (row_index == 2) {
+			std::cout << "\t\tKnocked pieces: ";
+			for (int i = 0; i < game_manager->GetPlayerOne()->GetOffPieces().size(); i++) {
+				std::cout << game_manager->GetPlayerOne()->GetOffPieces()[i]->GetName() << (i + 1 >= game_manager->GetPlayerOne()->GetOffPieces().size() ? "" : ", ");
+			}
+		}
+
+		setConsoleColor("black_piece_color");
+
+		if (row_index == 3) {
+			std::cout << (game_manager->GetActPlayerNumber() == 2 ? '*' : ' ') << game_manager->GetPlayerTwo()->GetName() << "\tPoints: " << game_manager->GetPlayerTwo()->GetPoints();
+		}
+		if (row_index == 4) {
+			std::cout << "\t\tKnocked pieces: ";
+			for (int i = 0; i < game_manager->GetPlayerTwo()->GetOffPieces().size(); i++) {
+				std::cout << game_manager->GetPlayerTwo()->GetOffPieces()[i]->GetName() << (i + 1 >= game_manager->GetPlayerTwo()->GetOffPieces().size() ? "" : ", ");
+			}
+		}
+
 		std::cout << '\n';
 	}
 
-	SetConsoleTextAttribute(coloring, black_white);
+	setConsoleColor("black_white");
 
 	std::cout << '\n';
 }
