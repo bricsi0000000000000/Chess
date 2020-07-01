@@ -1,6 +1,8 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#include <fstream>
+
 #include "Player.h"
 
 class GameManager {
@@ -15,6 +17,17 @@ private:
 
 	int act_player = 1;
 
+	void saveResults() {
+		std::ofstream results_file("results.csv", std::ios::app);
+		if (results_file.is_open()) {
+			results_file << GetActPlayer()->GetName() << ";" << GetOppositePlayer()->GetName() << ";" << GetActPlayer()->GetPoints() << ";" << GetOppositePlayer()->GetPoints() << '\n';
+			results_file.close();
+		}
+		else {
+			std::cout << "Something is wrong with the results.\n";
+		}
+	}
+
 public:
 	static GameManager* Instance() {
 		if (!instance) {
@@ -23,9 +36,9 @@ public:
 		return instance;
 	}
 
-	void StartGame(std::string player_one_name, std::string player_two_name, int start_player = 0) {
-		player_one = new Player(player_one_name, start_player == 0 ? Color::White : Color::Black);
-		player_two = new Player(player_two_name, start_player == 0 ? Color::Black : Color::White);
+	void StartGame(std::string player_one_name, bool player_one_is_bot, std::string player_two_name, bool player_two_is_bot) {
+		player_one = new Player(player_one_name, Color::White, player_one_is_bot);
+		player_two = new Player(player_two_name, Color::Black, player_two_is_bot);
 	}
 
 	bool GetGameOver() {
@@ -34,6 +47,7 @@ public:
 	void GameOver() {
 		game_over = true;
 		std::cout << GetActPlayer()->GetName() << " won\n";
+		saveResults();
 	}
 
 	Player* GetPlayerOne() {

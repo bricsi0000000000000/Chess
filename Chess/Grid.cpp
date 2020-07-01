@@ -88,7 +88,7 @@ void Grid::clearConsole() {
 }
 
 void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Position>> highlight_cells) {
-	//clearConsole();
+	clearConsole();
 	setConsoleColor("black_white");
 
 	const int SIZE = 33;

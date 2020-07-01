@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(std::string name, Color color) : name(name), points(0), color(color) {}
+Player::Player(std::string name, Color color, bool is_bot) : name(name), points(0), color(color), is_bot(is_bot) {}
 
 std::string Player::GetName() {
 	return name;
@@ -28,4 +28,8 @@ void Player::RemoveOffPiece(std::shared_ptr<Piece> piece) {
 			off_pieces.erase(off_pieces.begin() + i);
 		}
 	}
+}
+
+bool Player::IsBot() {
+	return is_bot;
 }

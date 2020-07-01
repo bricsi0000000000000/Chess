@@ -360,11 +360,14 @@ public:
 		}
 	}
 
-	void ReadCommand(PieceManager* piece_manager, Grid* grid, RuleManager* rule_manager, GameManager* game_manager) {
-		//std::cout << "Hint: column row (a1)\n";
-		if (game_manager->GetActPlayer()->GetColor() == Color::Black) {
+	void ReadCommandBot() {
 
-			if (check_check_mate_steps > checkCheckMate(grid, piece_manager, rule_manager, Color::Black, game_manager)) {
+	}
+
+	void ReadCommand(PieceManager* piece_manager, Grid* grid, RuleManager* rule_manager, GameManager* game_manager) {
+		if (game_manager->GetActPlayer()->IsBot()) {
+
+			if (check_check_mate_steps > checkCheckMate(grid, piece_manager, rule_manager, game_manager->GetActPlayer()->GetColor(), game_manager)) {
 				std::cout << "Check mate\n";
 				game_manager->GameOver();
 			}
@@ -379,7 +382,7 @@ public:
 			std::vector<std::shared_ptr<Piece>> danger_zone;
 
 			for (const auto enemy_piece : piece_manager->GetPieces()) {
-				if (enemy_piece->GetColor() == Color::White) {
+				if (enemy_piece->GetColor() == game_manager->GetOppositePlayer()->GetColor()) {
 					for (const auto enemy_step : possibleSteps(grid, piece_manager, rule_manager, enemy_piece)) {
 						std::shared_ptr<Piece> enemy_from_piece = piece_manager->GetPiece(enemy_piece->GetPosition());
 						std::shared_ptr<Piece> enemy_to_piece = piece_manager->GetPiece(enemy_step);
@@ -461,7 +464,7 @@ public:
 			to_position = nullptr;
 
 			for (const auto piece : piece_manager->GetPieces()) {
-				if (piece->GetColor() == Color::Black) {
+				if (piece->GetColor() == game_manager->GetActPlayer()->GetColor()) {
 					for (const auto step : possibleSteps(grid, piece_manager, rule_manager, piece)) {
 						int current_value = 0;
 
@@ -529,7 +532,7 @@ public:
 							piece_manager->MovePiece(from_piece->GetPosition(), step);
 
 							for (const auto enemy_piece : piece_manager->GetPieces()) {
-								if (enemy_piece->GetColor() == Color::White) {
+								if (enemy_piece->GetColor() == game_manager->GetOppositePlayer()->GetColor()) {
 									for (const auto enemy_step : possibleSteps(grid, piece_manager, rule_manager, enemy_piece)) {
 										std::shared_ptr<Piece> enemy_from_piece = piece_manager->GetPiece(enemy_piece->GetPosition());
 										std::shared_ptr<Piece> enemy_to_piece = piece_manager->GetPiece(enemy_step);
@@ -695,7 +698,7 @@ public:
 				while (!step_is_good) {
 					from_piece = piece_manager->GetPieces()[rand() % piece_manager->GetPieces().size()];
 
-					if (from_piece->GetColor() != Color::Black) {
+					if (from_piece->GetColor() != game_manager->GetActPlayer()->GetColor()) {
 						continue;
 					}
 
@@ -719,9 +722,6 @@ public:
 				from_piece = piece_manager->GetPiece(from_position);
 				to_piece = piece_manager->GetPiece(to_position);
 			}
-
-			std::cout << "best value: " << best_value << '\n';
-			std::cout << "enemy best value: " << enemy_best_value << '\n';
 
 			bool can_step = false;
 			bool remove_piece = false;
@@ -787,13 +787,12 @@ public:
 					if (remove_piece) {
 						piece_manager->RevivePiece(to_piece, game_manager);
 					}
-					//std::cout << "Can't step, because you are in check!\n";
 					check_check_mate_steps++;
 					return;
 				}
 				else {
 					checkCheck(grid, piece_manager, rule_manager, game_manager->GetOppositePlayer()->GetColor());
-					std::cout << "Bot step: |" << from_piece->GetName() << "| (" << prev_position->x << ';' << prev_position->y << ") -> (" << to_position->x << ';' << to_position->y << ")\n";
+					std::cout << "Bot step: " << from_piece->GetName() << " (" << prev_position->x << ';' << prev_position->y << ") -> (" << to_position->x << ';' << to_position->y << ")\n";
 
 					check_check_mate_steps = 0;
 
@@ -823,7 +822,6 @@ public:
 			std::cout << "Select piece: ";
 			std::string from_input;
 			std::cin >> from_input;
-
 
 			int from_column = -1 * (char('a') - int(from_input[0]));
 			int from_row = int(from_input[1]) - '0' - 1;
