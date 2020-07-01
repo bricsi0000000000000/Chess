@@ -331,25 +331,28 @@ public:
 	}
 
 	int getPieceValue(std::shared_ptr<Piece> piece) {
+		if (piece == nullptr) {
+			return 0;
+		}
 		switch (piece->GetPieceType())
 		{
 		case PieceType::Pawn:
-			return 1;
+			return 10;
 			break;
 		case PieceType::Knight:
-			return 2;
+			return 20;
 			break;
 		case PieceType::Bishop:
-			return 3;
+			return 30;
 			break;
 		case PieceType::Rook:
-			return 4;
+			return 40;
 			break;
 		case PieceType::Queen:
-			return 5;
+			return 50;
 			break;
 		case PieceType::King:
-			return 6;
+			return 60;
 			break;
 		default:
 			return 0;
@@ -370,7 +373,92 @@ public:
 			std::shared_ptr<Position> to_position = nullptr;
 			std::shared_ptr<Piece> from_piece = nullptr;
 			std::shared_ptr<Piece> to_piece = nullptr;
-			int best_value = -1;
+			int best_value = 0;
+			int enemy_best_value = 0;
+
+			std::vector<std::shared_ptr<Piece>> danger_zone;
+
+			for (const auto enemy_piece : piece_manager->GetPieces()) {
+				if (enemy_piece->GetColor() == Color::White) {
+					for (const auto enemy_step : possibleSteps(grid, piece_manager, rule_manager, enemy_piece)) {
+						std::shared_ptr<Piece> enemy_from_piece = piece_manager->GetPiece(enemy_piece->GetPosition());
+						std::shared_ptr<Piece> enemy_to_piece = piece_manager->GetPiece(enemy_step);
+						bool enemy_can_step = false;
+						bool enemy_remove_piece = false;
+
+						int enemy_current_value = 0;
+
+						if (enemy_to_piece == nullptr) {
+							if (!piece_manager->CanMove(enemy_from_piece->GetPosition(), enemy_step)) {
+								continue;
+							}
+							else {
+								if (isInPossibleSteps(grid, piece_manager, rule_manager, enemy_from_piece, enemy_step)) {
+									if (enemy_from_piece->GetPieceType() == PieceType::Pawn) {
+										if (enemy_from_piece->GetPosition()->y == enemy_step->y) {
+											enemy_can_step = true;
+										}
+										else {
+											continue;
+										}
+									}
+									else {
+										enemy_can_step = true;
+									}
+								}
+								else {
+									continue;
+								}
+							}
+						}
+						else {
+							if (enemy_to_piece->GetColor() != enemy_from_piece->GetColor()) {
+								if (isInPossibleSteps(grid, piece_manager, rule_manager, enemy_from_piece, enemy_step)) {
+									if (enemy_from_piece->GetPieceType() == PieceType::Pawn) {
+										if (enemy_from_piece->GetPosition()->y != enemy_step->y) {
+											enemy_remove_piece = true;
+											enemy_can_step = true;
+										}
+										else {
+											continue;
+										}
+									}
+									else {
+										enemy_remove_piece = true;
+										enemy_can_step = true;
+									}
+								}
+								else {
+									continue;
+								}
+							}
+							else {
+								continue;
+							}
+						}
+
+						if (enemy_can_step) {
+							if (enemy_remove_piece) {
+								enemy_current_value += getPieceValue(enemy_to_piece);
+								danger_zone.push_back(enemy_to_piece);
+							}
+						}
+
+						if (enemy_current_value > enemy_best_value) {
+							enemy_best_value = enemy_current_value;
+							from_position = enemy_piece->GetPosition();
+							to_position = enemy_step;
+						}
+					}
+				}
+			}
+
+			if (from_position != nullptr && to_position != nullptr) {
+				std::cout << from_position->x << ';' << from_position->y << '\t' << to_position->x << ';' << to_position->y << '\t' << enemy_best_value << '\n';
+			}
+
+			from_position = nullptr;
+			to_position = nullptr;
 
 			for (const auto piece : piece_manager->GetPieces()) {
 				if (piece->GetColor() == Color::Black) {
@@ -432,42 +520,209 @@ public:
 						}
 
 						if (can_step) {
+							int to_piece_value = getPieceValue(to_piece);
 							if (remove_piece) {
-								current_value += getPieceValue(to_piece);
+								current_value += to_piece_value;
+								piece_manager->RemovePiece(step, game_manager);
+							}
+							std::shared_ptr<Position> prev_position = from_piece->GetPosition();
+							piece_manager->MovePiece(from_piece->GetPosition(), step);
+
+							for (const auto enemy_piece : piece_manager->GetPieces()) {
+								if (enemy_piece->GetColor() == Color::White) {
+									for (const auto enemy_step : possibleSteps(grid, piece_manager, rule_manager, enemy_piece)) {
+										std::shared_ptr<Piece> enemy_from_piece = piece_manager->GetPiece(enemy_piece->GetPosition());
+										std::shared_ptr<Piece> enemy_to_piece = piece_manager->GetPiece(enemy_step);
+										bool enemy_can_step = false;
+										bool enemy_remove_piece = false;
+
+										if (enemy_to_piece == nullptr) {
+											if (!piece_manager->CanMove(enemy_from_piece->GetPosition(), enemy_step)) {
+												continue;
+											}
+											else {
+												if (isInPossibleSteps(grid, piece_manager, rule_manager, enemy_from_piece, enemy_step)) {
+													if (enemy_from_piece->GetPieceType() == PieceType::Pawn) {
+														if (enemy_from_piece->GetPosition()->y == enemy_step->y) {
+															enemy_can_step = true;
+														}
+														else {
+															continue;
+														}
+													}
+													else {
+														enemy_can_step = true;
+													}
+												}
+												else {
+													continue;
+												}
+											}
+										}
+										else {
+											if (enemy_to_piece->GetColor() != enemy_from_piece->GetColor()) {
+												if (isInPossibleSteps(grid, piece_manager, rule_manager, enemy_from_piece, enemy_step)) {
+													if (enemy_from_piece->GetPieceType() == PieceType::Pawn) {
+														if (enemy_from_piece->GetPosition()->y != enemy_step->y) {
+															enemy_remove_piece = true;
+															enemy_can_step = true;
+														}
+														else {
+															continue;
+														}
+													}
+													else {
+														enemy_remove_piece = true;
+														enemy_can_step = true;
+													}
+												}
+												else {
+													continue;
+												}
+											}
+											else {
+												continue;
+											}
+										}
+
+										if (enemy_can_step) {
+											if (enemy_remove_piece) {
+												if (to_piece_value < getPieceValue(enemy_to_piece)) {
+													current_value -= getPieceValue(enemy_to_piece);
+												}
+												danger_zone.push_back(enemy_to_piece);
+											}
+										}
+									}
+								}
+							}
+
+							piece_manager->MovePiece(step, prev_position);
+							if (remove_piece) {
+								piece_manager->RevivePiece(to_piece, game_manager);
+							}
+						}
+
+						bool is_in_danger_zone = false;
+						for (const auto& danger_piece : danger_zone) {
+							if (danger_piece->GetName() == piece->GetName()) {
+								is_in_danger_zone = true;
+							}
+						}
+						if (is_in_danger_zone) {
+							for (const auto danger_step : possibleSteps(grid, piece_manager, rule_manager, piece)) {
+								std::shared_ptr<Piece> danger_from_piece = piece;
+								std::shared_ptr<Piece> danger_to_piece = piece_manager->GetPiece(danger_step);
+								bool danger_can_step = false;
+								bool danger_remove_piece = false;
+
+								if (danger_to_piece == nullptr) {
+									if (!piece_manager->CanMove(danger_from_piece->GetPosition(), danger_step)) {
+										continue;
+									}
+									else {
+										if (isInPossibleSteps(grid, piece_manager, rule_manager, danger_from_piece, danger_step)) {
+											if (danger_from_piece->GetPieceType() == PieceType::Pawn) {
+												if (danger_from_piece->GetPosition()->y == danger_step->y) {
+													danger_can_step = true;
+												}
+												else {
+													continue;
+												}
+											}
+											else {
+												danger_can_step = true;
+											}
+										}
+										else {
+											continue;
+										}
+									}
+								}
+								else {
+									if (danger_to_piece->GetColor() != danger_from_piece->GetColor()) {
+										if (isInPossibleSteps(grid, piece_manager, rule_manager, danger_from_piece, danger_step)) {
+											if (danger_from_piece->GetPieceType() == PieceType::Pawn) {
+												if (danger_from_piece->GetPosition()->y != danger_step->y) {
+													danger_remove_piece = true;
+													danger_can_step = true;
+												}
+												else {
+													continue;
+												}
+											}
+											else {
+												danger_remove_piece = true;
+												danger_can_step = true;
+											}
+										}
+										else {
+											continue;
+										}
+									}
+									else {
+										continue;
+									}
+								}
+
+								if (danger_can_step) {
+									if (danger_remove_piece) {
+										if (getPieceValue(danger_from_piece) < getPieceValue(danger_to_piece)) {
+											current_value += getPieceValue(danger_to_piece);
+										}
+									}
+									
+								}
 							}
 						}
 
 						if (current_value > best_value) {
-							best_value = current_value;
-							from_position = piece->GetPosition();
-							to_position = step;
+							if (best_value <= enemy_best_value) {
+								best_value = current_value;
+								from_position = piece->GetPosition();
+								to_position = step;
+							}
 						}
 					}
 				}
 			}
+			if (from_position != nullptr && to_position != nullptr) {
+				std::cout << from_position->x << ';' << from_position->y << '\t' << to_position->x << ';' << to_position->y << '\t' << best_value << '\n';
+			}
 
-			if (best_value == 0) {
-				from_piece = piece_manager->GetPieces()[rand() % piece_manager->GetPieces().size()];
+			if (best_value <= 0) {
+				bool step_is_good = false;
+				while (!step_is_good) {
+					from_piece = piece_manager->GetPieces()[rand() % piece_manager->GetPieces().size()];
 
-				if (from_piece->GetColor() != Color::Black) {
-					return;
+					if (from_piece->GetColor() != Color::Black) {
+						continue;
+					}
+
+					std::vector<std::shared_ptr<Position>> steps = possibleSteps(grid, piece_manager, rule_manager, from_piece);
+
+					if (steps.size() <= 0) {
+						continue;
+					}
+					else {
+						step_is_good = true;
+					}
+
+					to_position = steps[rand() % steps.size()];
+					to_piece = piece_manager->GetPiece(to_position);
+
+					from_position = from_piece->GetPosition();
 				}
-
-				std::vector<std::shared_ptr<Position>> steps = possibleSteps(grid, piece_manager, rule_manager, from_piece);
-
-				if (steps.size() <= 0) {
-					return;
-				}
-
-				to_position = steps[rand() % steps.size()];
-				to_piece = piece_manager->GetPiece(to_position);
 			}
 			else
 			{
 				from_piece = piece_manager->GetPiece(from_position);
 				to_piece = piece_manager->GetPiece(to_position);
 			}
-		
+
+			std::cout << "best value: " << best_value << '\n';
+			std::cout << "enemy best value: " << enemy_best_value << '\n';
+
 			bool can_step = false;
 			bool remove_piece = false;
 			if (to_piece == nullptr) {
@@ -568,6 +823,7 @@ public:
 			std::cout << "Select piece: ";
 			std::string from_input;
 			std::cin >> from_input;
+
 
 			int from_column = -1 * (char('a') - int(from_input[0]));
 			int from_row = int(from_input[1]) - '0' - 1;

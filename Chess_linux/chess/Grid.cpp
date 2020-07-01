@@ -78,82 +78,18 @@ void Grid::setConsoleColor(std::string color_name) {
   }
 }
 
-void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Position>> highlight_cells) {
+void Grid::clearConsole() {
 #ifdef _WIN32
-  std::system("cls");
+    std::system("cls");
 #endif
 #ifdef linux
-  std::system("clear");
+    std::system("clear");
 #endif
+}
 
+void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Position>> highlight_cells) {
+  clearConsole();
   setConsoleColor("black_white");
-
-#ifdef _WIN32
-  const char horizontal_line = (char)196;
-#endif
-  #ifdef linux
-  const char horizontal_line = '-';
-#endif
-#ifdef _WIN32
-  const char cross_line = (char)197;
-#endif
-  #ifdef linux
-  const char cross_line = '+';
-#endif
-#ifdef _WIN32
-  const char vertical_line = (char)179;
-#endif
-  #ifdef linux
-  const char vertical_line = '|';
-#endif
-#ifdef _WIN32
-  const char top_right_edge = (char)191;
-#endif
-  #ifdef linux
-  const char top_right_edge = '-';
-#endif
-#ifdef _WIN32
-  const char top_left_edge = (char)218;
-#endif
-  #ifdef linux
-  const char top_left_edge = '-';
-#endif
-#ifdef _WIN32
-  const char bottom_left_edge = (char)192;
-#endif
-  #ifdef linux
-  const char bottom_left_edge = '-';
-#endif
-#ifdef _WIN32
-  const char bottom_right_edge = (char)217;
-#endif
-  #ifdef linux
-  const char bottom_right_edge = '-';
-#endif
-#ifdef _WIN32
-  const char bottom_mid = (char)193;
-#endif
-  #ifdef linux
-  const char bottom_mid = '-';
-#endif
-#ifdef _WIN32
-  const char top_mid = (char)194;
-#endif
-  #ifdef linux
-  const char top_mid = '-';
-#endif
-#ifdef _WIN32
-  const char right_mid = (char)180;
-#endif
-  #ifdef linux
-  const char right_mid = '|';
-#endif
-#ifdef _WIN32
-  const char left_mid = (char)195;
-#endif
-  #ifdef linux
-  const char left_mid = '|';
-#endif
 
   const int SIZE = 33;
   int row_draw_index = 2;
@@ -345,3 +281,4 @@ void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Posit
 std::vector<std::vector<std::shared_ptr<Field>>> Grid::GetGrid() {
   return grid;
 }
+
