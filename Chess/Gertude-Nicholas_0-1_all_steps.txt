@@ -1,0 +1,129 @@
+Gertude stepped with white pawn 2 from b2 to b4
+Nicholas stepped with black pawn 4 from d7 to d5
+Gertude stepped with white pawn 6 from f2 to f3
+Nicholas stepped with black pawn 1 from a7 to a5
+Gertude stepped with white pawn 5 from e2 to e4
+Nicholas stepped with black pawn 6 from f7 to f5
+Gertude stepped with white pawn 2 from b4 to a5
+Nicholas stepped with black pawn 3 from c7 to c6
+Gertude stepped with left white knight from b1 to a3
+Nicholas stepped with black pawn 5 from e7 to e6
+Gertude stepped with left white rook from a1 to b1
+Nicholas stepped with black pawn 7 from g7 to g6
+Gertude stepped with white pawn 7 from g2 to g3
+Nicholas stepped with left black rook from a8 to a5
+Gertude stepped with white pawn 5 from e4 to e5
+Nicholas stepped with black pawn 4 from d5 to d4
+Gertude stepped with right white knight from g1 to e2
+Nicholas stepped with black pawn 8 from h7 to h6
+Gertude stepped with right white bishop from f1 to h3
+Nicholas stepped with right black bishop from f8 to c5
+Gertude stepped with white king from e1 to f1
+Nicholas stepped with black pawn 7 from g6 to g5
+Gertude stepped with left white bishop from c1 to b2
+Nicholas stepped with left black rook from a5 to a4
+Gertude stepped with white queen from d1 to e1
+Nicholas stepped with black pawn 6 from f5 to f4
+Gertude stepped with white queen from e1 to d1
+Nicholas stepped with black queen from d8 to d6
+Gertude stepped with white pawn 5 from e5 to d6
+Nicholas stepped with left black bishop from c8 to d7
+Gertude stepped with right white bishop from h3 to g2
+Nicholas stepped with left black bishop from d7 to c8
+Gertude stepped with right white bishop from g2 to h3
+Nicholas stepped with left black rook from a4 to a6
+Gertude stepped with right white knight from e2 to c1
+Nicholas stepped with right black rook from h8 to h7
+Gertude stepped with white pawn 7 from g3 to f4
+Nicholas stepped with left black knight from b8 to d7
+Gertude stepped with left white knight from a3 to b5
+Nicholas stepped with black pawn 3 from c6 to b5
+Gertude stepped with white king from f1 to g2
+Nicholas stepped with black pawn 2 from b7 to b6
+Gertude stepped with right white rook from h1 to f1
+Nicholas stepped with black king from e8 to d8
+Gertude stepped with right white rook from f1 to h1
+Nicholas stepped with left black knight from d7 to b8
+Gertude stepped with white queen from d1 to g1
+Nicholas stepped with black pawn 3 from b5 to b4
+Gertude stepped with right white knight from c1 to d3
+Nicholas stepped with black pawn 5 from e6 to e5
+Gertude stepped with right white knight from d3 to c5
+Nicholas stepped with left black knight from b8 to c6
+Gertude stepped with right white knight from c5 to a6
+Nicholas stepped with left black bishop from c8 to a6
+Gertude stepped with white pawn 7 from f4 to g5
+Nicholas stepped with black pawn 8 from h6 to g5
+Gertude stepped with left white rook from b1 to f1
+Nicholas stepped with left black bishop from a6 to b7
+Gertude stepped with left white bishop from b2 to c1
+Nicholas stepped with black pawn 2 from b6 to b5
+Gertude stepped with right white bishop from h3 to g4
+Nicholas stepped with black king from d8 to e8
+Gertude stepped with white queen from g1 to f2
+Nicholas stepped with right black rook from h7 to g7
+Gertude stepped with white pawn 3 from c2 to c4
+Nicholas stepped with right black rook from g7 to c7
+Gertude stepped with white pawn 5 from d6 to d7
+Nicholas stepped with black king from e8 to d8
+Gertude stepped with white pawn 6 from f3 to f4
+Nicholas stepped with right black knight from g8 to e7
+Gertude stepped with left white bishop from c1 to b2
+Nicholas stepped with black pawn 5 from e5 to f4
+Gertude stepped with white king from g2 to f3
+Nicholas stepped with left black bishop from b7 to c8
+Gertude stepped with white pawn 5 from d7 to c8
+Nicholas stepped with right black knight from e7 to c8
+Gertude stepped with white pawn 3 from c4 to b5
+Nicholas stepped with black pawn 4 from d4 to d3
+Gertude stepped with white queen from f2 to c5
+Nicholas stepped with black king from d8 to e8
+Gertude stepped with white pawn 8 from h2 to h4
+Nicholas stepped with black king from e8 to d8
+Gertude stepped with white queen from c5 to g5
+Nicholas stepped with black king from d8 to e8
+Gertude stepped with right white rook from h1 to g1
+Nicholas stepped with black pawn 3 from b4 to b3
+Gertude stepped with white pawn 1 from a2 to b3
+Nicholas stepped with right black rook from c7 to a7
+Gertude stepped with white pawn 1 from b3 to b4
+Nicholas stepped with left black knight from c6 to a5
+Gertude stepped with white pawn 8 from h4 to h5
+Nicholas stepped with black king from e8 to f7
+Gertude stepped with left white rook from f1 to a1
+Nicholas stepped with left black knight from a5 to b7
+Gertude stepped with left white bishop from b2 to g7
+Nicholas stepped with left black knight from b7 to d8
+Gertude stepped with left white bishop from g7 to d4
+Nicholas stepped with left black knight from d8 to c6
+Gertude stepped with left white bishop from d4 to a7
+Nicholas stepped with right black knight from c8 to a7
+Gertude stepped with white pawn 3 from b5 to b6
+Nicholas stepped with right black knight from a7 to c8
+Gertude stepped with right white bishop from g4 to c8
+Nicholas stepped with left black knight from c6 to d4
+Gertude stepped with white king from f3 to e4
+Nicholas stepped with black pawn 5 from f4 to f3
+Gertude stepped with white pawn 3 from b6 to b7
+Nicholas stepped with black pawn 5 from f3 to f2
+Gertude stepped with right white rook from g1 to c1
+Nicholas stepped with left black knight from d4 to e2
+Gertude stepped with white pawn 3 from b7 to b8
+Nicholas stepped with left black knight from e2 to d4
+Gertude stepped with white pawn 1 from b4 to b5
+Nicholas stepped with left black knight from d4 to e6
+Gertude stepped with white queen from g5 to e7
+Nicholas stepped with black king from f7 to g8
+Gertude stepped with right white bishop from c8 to d7
+Nicholas stepped with left black knight from e6 to d8
+Gertude stepped with queen promoted 1 from b8 to c8
+Nicholas stepped with black king from g8 to h8
+Gertude stepped with white pawn 1 from b5 to b6
+Nicholas stepped with black pawn 5 from f2 to f1
+Gertude stepped with right white rook from c1 to f1
+Nicholas stepped with black king from h8 to g8
+Gertude stepped with white queen from e7 to f8
+Nicholas stepped with black king from g8 to h7
+Gertude stepped with queen promoted 1 from c8 to c4
+Nicholas stepped with left black knight from d8 to e6
+Gertude stepped with right white bishop from d7 to e6

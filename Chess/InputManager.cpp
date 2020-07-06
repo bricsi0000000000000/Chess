@@ -1147,7 +1147,7 @@ void InputManager::play(GameManager* previous_game_manager) {
 			results();
 		}
 		else if (input.compare("Exit") == 0 || input.compare("exit") == 0 || input.compare("e") == 0 || input.compare("E") == 0) {
-			exit();
+			return;
 		}
 		else {
 			results();
