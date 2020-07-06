@@ -1,12 +1,17 @@
 TEMPLATE = app
-CONFIG += console c++11
+CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        Field.cpp \
+        GameManager.cpp \
         Grid.cpp \
+        InputManager.cpp \
         Piece.cpp \
+        PieceManager.cpp \
         Player.cpp \
+        RuleManager.cpp \
         main.cpp
 
 HEADERS += \

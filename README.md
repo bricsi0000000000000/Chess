@@ -33,6 +33,8 @@ Windows-on és linuxon máshogy kell színezni a konzolt, viszont ezt lekezeli a
       - [Position](#position)
       - [RuleManager](#rulemanager)
       - [Chess](#chess-1)
+  - [Gameplay linuxon](#gameplay-linuxon)
+  - [Gép a gép elleni pillanatok](#gép-a-gép-elleni-pillanatok)
 
 ## Felhasználói dokumentáció
 
@@ -121,6 +123,8 @@ A gépi játékos(ok)ba beleépítettem egy álltalam kitalált logikát. Nem tu
 10. Ha sikerült egy **gyalogot** eljuttatnia az utolsó sorba, akkor azt **királynővé** lépteti elő.
 
 A gép nem lép szuper gyorsan, viszont nem is lép szuper lassan. Néha meg eshet hogy többet gondolkodik mint álltalában, ilyenkor a játék kiírja a képernyőre, hogy az adott gépi játékos éppen gondolkodik. Viszont van amikor eléggé gyorsan sikerül döntenie, ez főleg akkor történik meg, amikor a játék vége fele eléggé elfogytak a bábuk. Ezért a gép minden lépése előtt vár `1` másodpercet, csak hogy emberi szemmel követkető legyen kettő gépi játékos játéka, illetve ha gép ellen játszunk, akkor se válasszon túl gyorsan a gép.
+
+![gameplay_2.PNG](images/gameplay_2.PNG)
 
 #### Bábuk értéke
 
@@ -344,3 +348,19 @@ A `CanStep` függvény dönti el, hogy egy bábuval hova lehet lépni.
 #### Chess
 
 Itt található a `main` függvény, ami elindítja a játékot.
+
+
+## Gameplay linuxon
+
+![linux gameplay](images/linux_gameplay.png)
+
+
+## Gép a gép elleni pillanatok
+
+Korai sakk matt
+
+![check_mate_bot_vs_bot.PNG](images/check_mate_bot_vs_bot.PNG)
+
+Késői sakk matt
+
+![check_mate_bot_vs_bot_1.PNG](images/check_mate_bot_vs_bot_1.PNG)

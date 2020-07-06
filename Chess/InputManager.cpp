@@ -268,10 +268,6 @@ void InputManager::checkCheck(Grid* grid, PieceManager* piece_manager, RuleManag
 			if (act_piece->GetPieceType() == PieceType::Pawn) {
 				if (act_piece->GetPosition()->y != piece_manager->GetKing(color)->GetPosition()->y) {
 					if (isInPossibleSteps(grid, piece_manager, rule_manager, act_piece, piece_manager->GetKing(color)->GetPosition())) {
-						std::cout << act_piece->GetName() << '\n';
-						for (auto a : possibleSteps(grid, piece_manager, rule_manager, act_piece)) {
-							std::cout << a->x << ';' << a->y << '\n';
-						}
 						check = true;
 						return;
 					}
@@ -279,10 +275,6 @@ void InputManager::checkCheck(Grid* grid, PieceManager* piece_manager, RuleManag
 			}
 			else {
 				if (isInPossibleSteps(grid, piece_manager, rule_manager, act_piece, piece_manager->GetKing(color)->GetPosition())) {
-					std::cout << act_piece->GetName() << '\n';
-					for (auto a : possibleSteps(grid, piece_manager, rule_manager, act_piece)) {
-						std::cout << a->x << ';' << a->y << '\n';
-					}
 					check = true;
 					return;
 				}

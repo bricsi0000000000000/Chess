@@ -1,4 +1,3 @@
-#include <memory.h>
 #include "Piece.h"
 
 Piece::Piece(std::string name, std::shared_ptr<Position> position, Color color, PieceType piece_type) :
