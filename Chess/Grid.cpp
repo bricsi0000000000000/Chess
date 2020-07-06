@@ -88,7 +88,7 @@ void Grid::clearConsole() {
 }
 
 void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Position>> highlight_cells) {
-	clearConsole();
+	//clearConsole();
 	setConsoleColor("black_white");
 
 	const int SIZE = 33;
@@ -246,71 +246,45 @@ void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Posit
 			i_index++;
 		}
 
-		setConsoleColor("white_piece_color");
-
 		if (row_index == 1) {
+			setConsoleColor("white_piece_color");
 			std::cout << (game_manager->GetActPlayerNumber() == 1 ? '*' : ' ') << game_manager->GetPlayerOne()->GetName() << "\tPoints: " << game_manager->GetPlayerOne()->GetPoints();
 		}
 		if (row_index == 2) {
+			setConsoleColor("white_piece_color");
 			std::cout << "\t\tKnocked pieces: ";
 			for (int i = 0; i < game_manager->GetPlayerOne()->GetOffPieces().size(); i++) {
-				switch (game_manager->GetPlayerOne()->GetOffPieces()[i]->GetPieceType())
-				{
-				case PieceType::Pawn:
-					std::cout << "P";
-					break;
-				case PieceType::Bishop:
-					std::cout << "B";
-					break;
-				case PieceType::King:
-					std::cout << "K";
-					break;
-				case PieceType::Knight:
-					std::cout << "k";
-					break;
-				case PieceType::Queen:
-					std::cout << "Q";
-					break;
-				case PieceType::Rook:
-					std::cout << "R";
-					break;
-				default:
-					break;
-				}
+				writePieceNameInitials(game_manager->GetPlayerOne()->GetOffPieces()[i]);
 			}
 		}
 
-		setConsoleColor("black_piece_color");
 
 		if (row_index == 3) {
+			setConsoleColor("black_piece_color");
 			std::cout << (game_manager->GetActPlayerNumber() == 2 ? '*' : ' ') << game_manager->GetPlayerTwo()->GetName() << "\tPoints: " << game_manager->GetPlayerTwo()->GetPoints();
 		}
 		if (row_index == 4) {
+			setConsoleColor("black_piece_color");
 			std::cout << "\t\tKnocked pieces: ";
 			for (int i = 0; i < game_manager->GetPlayerTwo()->GetOffPieces().size(); i++) {
-				switch (game_manager->GetPlayerTwo()->GetOffPieces()[i]->GetPieceType())
-				{
-				case PieceType::Pawn:
-					std::cout << "P";
-					break;
-				case PieceType::Bishop:
-					std::cout << "B";
-					break;
-				case PieceType::King:
-					std::cout << "K";
-					break;
-				case PieceType::Knight:
-					std::cout << "k";
-					break;
-				case PieceType::Queen:
-					std::cout << "Q";
-					break;
-				case PieceType::Rook:
-					std::cout << "R";
-					break;
-				default:
-					break;
-				}
+				writePieceNameInitials(game_manager->GetPlayerTwo()->GetOffPieces()[i]);
+			}
+		}
+
+		if (row_index == 5) {
+			if (game_manager->GetPlayerOne()->GetStepPiece() != nullptr) {
+				setConsoleColor("white_piece_color");
+				std::cout << game_manager->GetPlayerOne()->GetName() << " stepped with ";
+				writePieceNameInitials(game_manager->GetPlayerOne()->GetStepPiece());
+				std::cout << " from " << game_manager->GetPlayerOne()->GetStepFrom() << " to " << game_manager->GetPlayerOne()->GetStepTo();
+			}
+		}
+		if (row_index == 6) {
+			if (game_manager->GetPlayerTwo()->GetStepPiece() != nullptr) {
+				setConsoleColor("black_piece_color");
+				std::cout << game_manager->GetPlayerTwo()->GetName() << " stepped with ";
+				writePieceNameInitials(game_manager->GetPlayerTwo()->GetStepPiece());
+				std::cout << " from " << game_manager->GetPlayerTwo()->GetStepFrom() << " to " << game_manager->GetPlayerTwo()->GetStepTo();
 			}
 		}
 
@@ -324,5 +298,31 @@ void Grid::DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Posit
 
 std::vector<std::vector<std::shared_ptr<Field>>> Grid::GetGrid() {
 	return grid;
+}
+
+void Grid::writePieceNameInitials(std::shared_ptr<Piece> piece) {
+	switch (piece->GetPieceType())
+	{
+	case PieceType::Pawn:
+		std::cout << "P";
+		break;
+	case PieceType::Bishop:
+		std::cout << "B";
+		break;
+	case PieceType::King:
+		std::cout << "K";
+		break;
+	case PieceType::Knight:
+		std::cout << "k";
+		break;
+	case PieceType::Queen:
+		std::cout << "Q";
+		break;
+	case PieceType::Rook:
+		std::cout << "R";
+		break;
+	default:
+		break;
+	}
 }
 

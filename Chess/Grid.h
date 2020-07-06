@@ -100,6 +100,7 @@ private:
 
   void setConsoleColor(std::string color_name);
   void clearConsole();
+  void writePieceNameInitials(std::shared_ptr<Piece> piece);
 public:
   void InitGrid(PieceManager* piece_manager);
   void DrawGrid(GameManager* game_manager, std::vector<std::shared_ptr<Position>> highlight_cells = {});

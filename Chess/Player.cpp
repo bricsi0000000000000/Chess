@@ -10,6 +10,10 @@ int Player::GetPoints() {
 	return points;
 }
 
+void Player::AddPoints(int point) {
+	points += point;
+}
+
 Color Player::GetColor() {
 	return color;
 }
@@ -30,6 +34,34 @@ void Player::RemoveOffPiece(std::shared_ptr<Piece> piece) {
 	}
 }
 
+void Player::ClearOffPieces() {
+	off_pieces.clear();
+}
+
 bool Player::IsBot() {
 	return is_bot;
+}
+
+std::string Player::GetStepFrom() {
+	return step_from;
+}
+
+std::string Player::GetStepTo() {
+	return step_to;
+}
+
+void Player::SetStepFrom(std::string position) {
+	step_from = position;
+}
+
+void Player::SetStepTo(std::string position) {
+	step_to = position;
+}
+
+std::shared_ptr<Piece> Player::GetStepPiece() {
+	return step_piece;
+}
+
+void Player::SetStepPiece(std::shared_ptr<Piece> piece) {
+	step_piece = piece;
 }
